@@ -24,17 +24,17 @@
                                         <th>Élève</th>
                                         <th>Classe entrée</th>
                                         <th>Classe sortie</th>
-                                        <th>Date entrée</th>
-                                        <th>Date de sortie</th>
+                                        <th>Année entrée</th>
+                                        <th>Année de sortie</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr th:each="schooling: ${promotion.schoolings}">
                                         <td><a  th:href="@{/alumnis/{id}(id=${schooling.alumni.id})}"><span th:text="${schooling.alumni.lastName}">Nom</span> <span th:text="${schooling.alumni.firstName}">Prénom</span></a></td>
-                                        <td><span th:text="${schooling.classOfEntry}">non renseigné</span></td>
-                                        <td><span th:text="${schooling.classOfRelease}">non renseigné</span></td>
-                                        <td><span th:text="${schooling.entryDate}">non renseigné</span></td>
-                                        <td><span th:text="${schooling.releaseDate}">non renseigné</span></td>
+                                        <td><span th:text="${schooling.entryClassroom.name}">non renseigné</span></td>
+                                        <td><span th:text="${schooling.releaseClassroom.name}">non renseigné</span></td>
+                                        <td><span th:text="${#dates.year(schooling.entryDate)}">non renseigné</span></td>
+                                        <td><span th:text="${#dates.year(schooling.releaseDate)}">non renseigné</span></td>
                                     </tr>
                                 </tbody>
 

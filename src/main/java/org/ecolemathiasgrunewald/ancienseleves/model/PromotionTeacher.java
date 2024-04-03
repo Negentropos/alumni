@@ -1,6 +1,7 @@
 package org.ecolemathiasgrunewald.ancienseleves.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -25,11 +26,13 @@ public class PromotionTeacher {
 
     private String role;
 
-    @Column(name = "entry_date", columnDefinition = "DATE")
-	private LocalDate startDate;
+    @Column(name = "entry_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date startDate;
 
-    @Column(name = "release_date", columnDefinition = "DATE")
-	private LocalDate endDate;
+    @Column(name = "release_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date endDate;
 
     @ManyToOne(
         cascade = CascadeType.ALL

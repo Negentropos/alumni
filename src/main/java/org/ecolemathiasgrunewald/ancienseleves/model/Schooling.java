@@ -1,6 +1,8 @@
 package org.ecolemathiasgrunewald.ancienseleves.model;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,17 +26,25 @@ public class Schooling {
 	@Column(name="id")
 	private int id;
 
-    @Column(name = "entry_date", columnDefinition = "DATE")
-	private LocalDate entryDate;
+    @Column(name = "entry_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date entryDate;
 
-    @Column(name = "release_date", columnDefinition = "DATE")
-	private LocalDate releaseDate;
+    @Column(name = "release_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date releaseDate;
 
-    @Column(name = "class_of_release")
-	private String classOfRelease;
+    @ManyToOne(
+        cascade = CascadeType.ALL
+    )
+    @JoinColumn(name="classroom_entry_id")
+    private Classroom entryClassroom;
 
-    @Column(name = "class_of_entry")
-	private String classOfEntry;
+    @ManyToOne(
+        cascade = CascadeType.ALL
+    )
+    @JoinColumn(name="classroom_release_id")
+    private Classroom releaseClassroom;
 
 	private String note;
 

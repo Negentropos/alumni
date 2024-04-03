@@ -54,22 +54,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `anciens_eleves`.`classroom`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `anciens_eleves`.`classroom` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `cycle` ENUM('JE', 'PC', 'GC') NOT NULL,
+  `code` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `anciens_eleves`.`schooling`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `anciens_eleves`.`schooling` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `entry_date` DATE NOT NULL,
   `release_date` DATE NULL,
-  `class_of_entry` VARCHAR(45) NOT NULL,
-  `class_of_release` VARCHAR(45) NULL,
   `note` TEXT(1000) NULL,
   `alumni_id` INT NOT NULL,
   `promotion_id` INT NOT NULL,
   `jardinier_id` INT NULL,
+  `classroom_entry_id` INT NOT NULL,
+  `classroom_release_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_schooling_alumni1_idx` (`alumni_id` ASC) VISIBLE,
   INDEX `fk_schooling_promotion1_idx` (`promotion_id` ASC) VISIBLE,
   INDEX `fk_schooling_teacher1_idx` (`jardinier_id` ASC) VISIBLE,
+  INDEX `fk_schooling_classroom1_idx` (`classroom_entry_id` ASC) VISIBLE,
+  INDEX `fk_schooling_classroom2_idx` (`classroom_release_id` ASC) VISIBLE,
   CONSTRAINT `fk_schooling_alumni1`
     FOREIGN KEY (`alumni_id`)
     REFERENCES `anciens_eleves`.`alumni` (`id`)
@@ -84,7 +98,17 @@ CREATE TABLE IF NOT EXISTS `anciens_eleves`.`schooling` (
     FOREIGN KEY (`jardinier_id`)
     REFERENCES `anciens_eleves`.`teacher` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_schooling_classroom1`
+    FOREIGN KEY (`classroom_entry_id`)
+    REFERENCES `anciens_eleves`.`classroom` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_schooling_classroom2`
+    FOREIGN KEY (`classroom_release_id`)
+    REFERENCES `anciens_eleves`.`classroom` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -126,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `anciens_eleves`.`study` (
   `note` TEXT(1000) NULL,
   `alumni_id` INT NOT NULL,
   `diploma_level` INT NULL,
-  PRIMARY KEY (`id`, `alumni_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_study_alumni1_idx` (`alumni_id` ASC) VISIBLE,
   CONSTRAINT `fk_study_alumni1`
     FOREIGN KEY (`alumni_id`)
@@ -146,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `anciens_eleves`.`job` (
   `release_date` DATE NULL,
   `company` VARCHAR(200) NULL,
   `alumni_id` INT NOT NULL,
-  PRIMARY KEY (`id`, `alumni_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_job_alumni1_idx` (`alumni_id` ASC) VISIBLE,
   CONSTRAINT `fk_job_alumni1`
     FOREIGN KEY (`alumni_id`)
@@ -165,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `anciens_eleves`.`contact` (
   `content` VARCHAR(200) NOT NULL,
   `alumni_id` INT NOT NULL,
   `usable` TINYINT(1) NULL DEFAULT 1,
-  PRIMARY KEY (`id`, `alumni_id`),
+  PRIMARY KEY (`id`),
   INDEX `fk_contact_alumni1_idx` (`alumni_id` ASC) VISIBLE,
   CONSTRAINT `fk_contact_alumni1`
     FOREIGN KEY (`alumni_id`)

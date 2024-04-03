@@ -36,13 +36,13 @@
                             <td colspan="7">Aucun ancien élève en base de données</td>
                         </tr>
                         <tr th:each="alumni: ${alumnis}">
-                            <td><a  th:href="@{/alumnis/{id}(id=${alumni.id})}"><span th:text="${alumni.firstName}"> Prénom </span></a></td>
+                            <td><a th:href="@{/alumnis/{id}(id=${alumni.id})}"><span th:text="${alumni.firstName}"> Prénom </span></a></td>
                             <td><span th:text="${alumni.lastName}"> Nom </span></td>
-                            <td><span>Promotion</span></td>
-                            <td><span th:text="${alumni.schooling.classOfEntry}">Classe d'entrée</span></td>
-                            <td><span th:text="${alumni.schooling.entryDate}">Date d'entrée</span></td>
-                            <td><span th:text="${alumni.schooling.classOfRelease}">Classe de sortie</span></td>
-                            <td><span th:text="${alumni.schooling.releaseDate}">Date de sortie</span></td>
+                            <td><a th:href="@{/promotions/{id}(id=${alumni.schooling.promotion.id})}"><span th:text="${alumni.schooling.promotion.name}">Promotion</span></a></td>
+                            <td><span th:text="${alumni.schooling.entryClassroom.name}">Classe d'entrée</span></td>
+                            <td><span th:text="${#dates.year(alumni.schooling.entryDate)}">Date d'entrée</span></td>
+                            <td><span th:text="${alumni.schooling.releaseClassroom.name}">Classe de sortie</span></td>
+                            <td><span th:text="${#dates.year(alumni.schooling.releaseDate)}">Date de sortie</span></td>
                         </tr>
                     </tbody>
                 </table>

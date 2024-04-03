@@ -2,7 +2,10 @@ package org.ecolemathiasgrunewald.ancienseleves.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,8 +30,9 @@ public class Alumni {
 	@Column(name = "gender", columnDefinition = "TINYINT(1)")
 	private boolean gender;
 
-	@Column(name = "birthdate", columnDefinition = "DATE")
-	private LocalDate birthDate;
+	@Column(name = "birthdate")
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date birthDate;
 
     @Column(name="first_name")
 	private String firstName;

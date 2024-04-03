@@ -2,7 +2,10 @@ package org.ecolemathiasgrunewald.ancienseleves.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.sql.Date;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,11 +37,13 @@ public class Teacher {
 
     private String phone;
 
-    @Column(name = "entry_date", columnDefinition = "DATE")
-	private LocalDate entryDate;
+    @Column(name = "entry_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date entryDate;
 
-    @Column(name = "release_date", columnDefinition = "DATE")
-	private LocalDate releaseDate;
+    @Column(name = "release_date")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date releaseDate;
 
     @OneToMany(
         mappedBy = "teacher",
