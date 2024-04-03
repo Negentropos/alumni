@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <div th:replace="fragments/head :: head"></div>
+        <title>EMG - Anciens élèves</title>
+    </head>
+    <body class="bg-light-subtle bg-gradient">
+        <header>
+            <div th:replace="fragments/header :: header"></div>
+        </header>
+        <main class="mt-5 mb-5">
+            <div class="container-fluid container-md">
+
+                <div class="row">
+                    <h1 class="mb-2 mt-3">Anciens élèves</h1>
+
+                    <div class="row">
+                        <div class="col-12"></div>
+                    </div>
+                </div>
+
+                <table class="table table-hover table-borderless ">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Promotion</th>
+                            <th>Classe d'entrée</th>
+                            <th>Date d'entrée</th>
+                            <th>Classe de sortie</th>
+                            <th>Date de sortie</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${alumnis.empty}">
+                            <td colspan="7">Aucun ancien élève en base de données</td>
+                        </tr>
+                        <tr th:each="alumni: ${alumnis}">
+                            <td><a  th:href="@{/alumnis/{id}(id=${alumni.id})}"><span th:text="${alumni.firstName}"> Prénom </span></a></td>
+                            <td><span th:text="${alumni.lastName}"> Nom </span></td>
+                            <td><span>Promotion</span></td>
+                            <td><span th:text="${alumni.schooling.classOfEntry}">Classe d'entrée</span></td>
+                            <td><span th:text="${alumni.schooling.entryDate}">Date d'entrée</span></td>
+                            <td><span th:text="${alumni.schooling.classOfRelease}">Classe de sortie</span></td>
+                            <td><span th:text="${alumni.schooling.releaseDate}">Date de sortie</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <div th:replace="fragments/scripts :: scripts"></div>
+    </body>
+</html>

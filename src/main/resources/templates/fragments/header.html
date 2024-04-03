@@ -1,0 +1,30 @@
+<th:block th:fragment="header">
+        <nav class="navbar navbar-expand-sm bg-primary fixed-top">
+          <div class="container-fluid container-md">
+            <a class="navbar-brand" href="#">
+              <img th:src="@{/images/Logo_EMG_mini.png}" height="30px" alt="École Mathias Grünewald">
+            <span class="align-middle text-light fw-bold">Anciens élèves</span>
+      </a>
+        <button class="navbar-toggler border border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="bi bi-list text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+              <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                <li class="nav-item dropdown">
+                  <button class="btn dropdown-toggle text-white " data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-pencil-square"></i> <span class="d-inline-block d-sm-none d-md-inline-block">Menu</span>
+                  </button>
+                  <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/alumnis">Élèves</a></li>
+                  <li><a class="dropdown-item" href="#">Promotions</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><h6 class="dropdown-header">Extractions</h6></li>
+                    <li><a class="dropdown-item" href="#">Suivi des effectifs</a></li>
+                    <li><a class="dropdown-item" href="#">Statistiques</a></li>
+                  </ul>
+                </li>
+             </ul>
+            </div>
+          </div>
+        </nav>
+</th:block>
