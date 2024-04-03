@@ -33,7 +33,7 @@
                             <div th:if="${not #lists.isEmpty(alumni.schooling.promotion.promotionTeachers)}" class="col-6">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item" th:if="${alumni.schooling.classOfEntry == 'JE'}">Jardinier(e) enfants : <span th:text="${alumni.schooling.jardinier.firstName}">?</span> <span th:text="${alumni.schooling.jardinier.lastName}"></span></li>
-                                    <li class="list-group-item"> Promotion <span th:text="${alumni.schooling.promotion.name}">promotion</span></li>
+                                    <li class="list-group-item"><a  th:href="@{/promotions/{id}(id=${alumni.schooling.promotion.id})}">Promotion <span th:text="${alumni.schooling.promotion.name}">promotion</span></a></li>
                                     <li th:each="promotionTeacher: ${alumni.schooling.promotion.promotionTeachers}" class="list-group-item"><span th:text="${promotionTeacher.teacher.lastName}">Nom</span> <span th:text="${promotionTeacher.teacher.firstName}">Prénom</span> - <span th:text="${promotionTeacher.role}">role</span> de <span th:text="${promotionTeacher.startDate}">date de début</span> à <span th:text="${promotionTeacher.endDate}" >date de fin</span></li>
                                 </ul>
                             </div>

@@ -35,4 +35,13 @@ public class Promotion {
     )
     private List<PromotionTeacher> promotionTeachers = new ArrayList<>();
 
+    @OneToMany(
+        mappedBy = "promotion",
+        cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST
+        }
+    )
+    private List<Schooling> schoolings = new ArrayList<>();
+
 }
