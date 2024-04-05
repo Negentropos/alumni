@@ -17,8 +17,18 @@ public class AlumniService {
         return repository.findAll();
     }
 
-    public Optional<Alumni> getAlumni(int id) {
+    public Optional<Alumni> getAlumni(Integer id) {
         return repository.findById(id);
     }
+
+
+    public Alumni saveAlumni(Alumni alumni) {
+		Alumni savedAlumni;
+		
+		savedAlumni = repository.save(alumni);
+		
+		return savedAlumni;
+	}
+
 
 }

@@ -21,10 +21,10 @@ public class Promotion {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 
     @Column(name="number")
-    private int name;
+    private Integer name;
 
     @OneToMany(
         mappedBy = "promotion",
@@ -43,5 +43,15 @@ public class Promotion {
         }
     )
     private List<Schooling> schoolings = new ArrayList<>();
+
+    public int amountStudents(int classCode){
+        int count = 0;
+        for (Schooling schooling : this.schoolings) {
+            if (schooling.isInClass(classCode)){
+                count++;
+            }
+        }
+        return count;
+    }
 
 }

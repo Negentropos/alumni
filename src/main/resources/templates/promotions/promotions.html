@@ -33,7 +33,7 @@
                         </tr>
                         <tr th:each="promotion: ${promotions}">
                             <td><a  th:href="@{/promotions/{id}(id=${promotion.id})}"><span th:text="${promotion.name}"> nom </span></a></td>
-                            <td></td>
+                            <td><span th:text="${promotion.amountStudents(1)}">effectifs 1e clase</span></td>
                             <td></td>
                         </tr>
                     </tbody>

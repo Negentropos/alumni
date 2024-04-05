@@ -3,8 +3,7 @@ package org.ecolemathiasgrunewald.ancienseleves.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import org.hibernate.annotations.DynamicUpdate;
 import java.sql.Date;
 
 import jakarta.persistence.Column;
@@ -19,19 +18,19 @@ import lombok.Data;
 
 @Entity
 @Data
+@DynamicUpdate
 @Table(name="alumni")
 public class Alumni {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 
 	@Column(name = "gender", columnDefinition = "TINYINT(1)")
 	private boolean gender;
 
 	@Column(name = "birthdate")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 
     @Column(name="first_name")

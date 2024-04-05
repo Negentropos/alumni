@@ -22,7 +22,7 @@ public class Study {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 
     private String diploma;
 
@@ -31,7 +31,7 @@ public class Study {
     private String note;
 
     @Column(name="diploma_level")
-    private int diplomaLevel;
+    private Integer diplomaLevel;
 
     @Column(name = "entry_date")
     @DateTimeFormat(pattern="yyyy-MM-dd")

@@ -2,8 +2,6 @@ package org.ecolemathiasgrunewald.ancienseleves.model;
 
 import java.sql.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,14 +22,12 @@ public class Schooling {
     @Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
-	private int id;
+	private Integer id;
 
     @Column(name = "entry_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date entryDate;
 
     @Column(name = "release_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date releaseDate;
 
     @ManyToOne(
@@ -68,5 +64,12 @@ public class Schooling {
     )
     @JoinColumn(name="jardinier_id")
     private Teacher jardinier;
+
+    public boolean isInClass(int classCode){
+        if (this.entryClassroom.getCode() >= classCode && this.releaseClassroom.getCode() <= classCode){
+            return true;
+        }
+        return false;
+    }
 
 }

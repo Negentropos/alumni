@@ -12,13 +12,19 @@
             <div class="container-fluid container-md">
 
                 <div class="row">
-                    <div class="col-12 col-11-lg col-xl-10 mt-4">
+                    <div class="col-12 mt-4">
                     <h1 class="mb-2 mt-3"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
+                      
                     <h3><span th:if="${alumni.gender}"><i class="bi bi-gender-male"></i></span>
-                        <span th:unless="${alumni.gender}"><i class="bi bi-gender-female"></i></span> <span th:if="${alumni.birthDate != null}">, Né<span th:unless="${alumni.gender}">e</span> le <span th:text="${#dates.format(alumni.birthDate,'dd/MM/yyyy')}">date de naissance</span></span></h3>
+                        <span th:unless="${alumni.gender}"><i class="bi bi-gender-female"></i></span> <span th:if="${alumni.birthDate != null}">, Né<span th:unless="${alumni.gender}">e</span> le <span th:text="${#dates.format(alumni.birthDate,'dd/MM/yyyy')}">date de naissance</span></span>
+                        <a data-bs-toggle="modal" data-bs-target="#alumniForm"><i class="bi bi-gear pink"></i>
+                        </a>
+                    </h3>
 
                     <fieldset class="mb-3 rounded shadow p-4">
                         <h3 class="pb-2">Scolarité EMG</h3>
+                        <a data-bs-toggle="modal" data-bs-target="#schoolingForm"><i class="bi bi-gear pink"></i>
+                        </a>
                         
                         <div class="row">
                             <div class="col">
@@ -61,8 +67,8 @@
                                         <td><span th:text="${study.diploma}">non renseigné</span></td>
                                         <td><span th:text="${study.diplomaLevel}">non renseigné</span></td>
                                         <td><span th:text="${study.note}"></span></td>
-                                        <td><span th:text="${study.entryDate}"></span></td>
-                                        <td><span th:text="${study.releaseDate}"></span></td>
+                                        <td><span th:text="${#dates.year(study.entryDate)}"></span></td>
+                                        <td><span th:text="${#dates.year(study.releaseDate)}"></span></td>
                                     </tr>
                                 </tbody>
 
@@ -86,8 +92,8 @@
                                 <tr th:each="job: ${alumni.jobs}">
                                     <td><span th:text="${job.company}">non renseigné</span></td>
                                     <td><span th:text="${job.name}">non renseigné</span></td>
-                                    <td><span th:text="${job.entryDate}"></span></td>
-                                    <td><span th:text="${job.releaseDate}"></span></td>
+                                    <td><span th:text="${#dates.year(job.entryDate)}"></span></td>
+                                    <td><span th:text="${#dates.year(job.releaseDate)}"></span></td>
                                 </tr>
                             </tbody>
 
@@ -110,12 +116,97 @@
                         </table>
 
                     </fieldset>
+
                     </div>
                 </div>
 
                 
             </div>
         </main>
+
+        <div th:replace="fragments/footer :: footer"></div>
+
+        <!-- Formulaire pour infos Alumni -->
+
+        <div class="modal fade" id="alumniForm" tabindex="-1" aria-labelledby="alumniFormLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Alumni</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" th:action="@{/saveAlumni}" th:object="${alumni}">
+
+                    <input type="hidden" th:field="*{id}" class="form-control">
+
+                    <div class="mb-3">
+                        <label for="firstNameControlInput" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="firstNameControlInput" th:field="*{firstName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="lastNameControlInput" class="form-label">Nom</label>
+                        <input type="text" class="form-control" id="lastNameControlInput" th:field="*{lastName}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="birthDateControlInput" class="form-label">Date de naissance</label>
+                        <input type="date" class="form-control" id="birthDateControlInput" th:field="*{birthDate}">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
+        
+        <!-- Formulaire pour scolarité EMG -->
+        <div class="modal fade" id="schoolingForm" tabindex="-1" aria-labelledby="schoolingFormLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Scolarité EMG</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" th:action="@{/saveSchooling}" th:object="${alumni.schooling}">
+
+                    <input type="hidden" th:field="*{id}" class="form-control">
+
+                    <div class="mb-3">
+                        <label for="entryDateControlInput" class="form-label">Date entrée</label>
+                        <input type="date" class="form-control" id="entryDateControlInput" th:field="*{entryDate}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="releaseDateControlInput" class="form-label">Date sortie</label>
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:field="*{releaseDate}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="releaseClassroomSelect" class="form-label">Classe sortie</label>
+                        <select class="form-select" aria-label="Release Class Room" id="releaseClassroomSelect" th:field="*{releaseClassroom.id}">
+                            <option th:each="classroom : ${classrooms}" th:text="${classroom.name}" th:value="${classroom.id}">Classe</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
+
+
+          <!--Scripts JS-->
 
         <div th:replace="fragments/scripts :: scripts"></div>
     </body>
