@@ -1,8 +1,6 @@
 package org.ecolemathiasgrunewald.ancienseleves.model;
 import java.sql.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,11 +26,9 @@ public class Job {
     private String company;
 
     @Column(name = "entry_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date entryDate;
 
     @Column(name = "release_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date releaseDate;
 
     @ManyToOne()

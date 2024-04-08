@@ -1,5 +1,7 @@
 <th:block th:fragment="header">
-        <nav class="navbar navbar-expand-sm bg-teal fixed-top">
+  <body class="bg-light-subtle bg-gradient d-flex flex-column min-vh-100">
+  <header>
+    <nav class="navbar navbar-expand-sm bg-teal fixed-top">
           <div class="container container-md">
             <a class="navbar-brand" href="/alumnis">
               <img th:src="@{/images/Logo_EMG_mini.png}" height="30px" alt="École Mathias Grünewald">
@@ -27,4 +29,8 @@
             </div>
           </div>
         </nav>
+      </header>
+      <main class="mt-5 mb-5">
+        <div class="container-fluid container-md">
+
 </th:block>

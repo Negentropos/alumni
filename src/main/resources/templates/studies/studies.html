@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <div th:replace="fragments/head :: head"></div>
+        <title>EMG - Études</title>
+    </head>
+
+            <div th:replace="fragments/header :: header"></div>
+
+                <!-- Breadcrumb -->
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                            <ol class="breadcrumb my-auto">
+                                <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                                <li class="breadcrumb-item"><a th:href="@{'/alumnis/' + ${alumni.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="${alumni.firstName} + ' ' + ${alumni.lastName}">Nom de l'élève</span></a></li>
+                                <li class="breadcrumb-item active">Études & formations</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 mt-4">
+                        <h1 class="mb-2 mt-3"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
+                        <h2>Promotion <span th:text="${alumni.schooling.promotion.name}">promotion</span></h2>
+                        <div class="row">
+                            <div class="col-8">
+                                <h3 class="mb-2">Diplômes et formations</h3>
+                            </div>
+                            <div class="col-4 text-end">
+                                <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" th:data-bs-target="@{'#addStudy' + ${alumni.id}}"><i class="bi bi-plus-circle"> Ajouter</i></a>
+                            </div>
+                        </div>
+
+                        <fieldset class="mb-3 mt-3 rounded shadow p-4 bg-white">
+                            <table class="table table-hover table-borderless ">
+                                <thead>
+                                    <tr>
+                                        <th>Établissement</th>
+                                        <th>Diplôme obtenu</th>
+                                        <th>Niveau</th>
+                                        <th>Remarque</th>
+                                        <th>Date de début</th>
+                                        <th>Date de fin</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${studies.empty}">
+                                        <td colspan="6">Aucun diplôme ou formation en base de données</td>
+                                    </tr>
+                                    <tr th:each="study: ${studies}">
+                                        <td><span th:text="${study.school}">Établissement</span></a></td>
+                                        <td><span th:text="${study.diploma}"> Diplôme obtenu </span></td>
+                                        <td><span th:text="${study.diplomaLevel}"> Diplôme obtenu </span></td>
+                                        <td><span th:text="${study.note}"> Remarque </span></td>
+                                        <td><span th:text="${#dates.year(study.entryDate)}"> Date de début</span></td>
+                                        <td><span th:text="${#dates.year(study.releaseDate)}"> Date de fin</span></td>
+                                        <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#update' + ${study.id}}"><i class="bi bi-tools" ></i></a></td>
+                                        <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#delete' + ${study.id}}"><i class="bi bi-trash" ></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+
+                    </div>
+                </div>
+
+                
+         
+
+        <!-- Formulaire d'ajout d'un job -->
+
+        <div class="modal fade" th:id="@{'addStudy' + ${alumni.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div data-bs-theme="dark" class="modal-header bg-pink">
+                    <h1 class="modal-title" id="staticBackdropLabel">Ajouter une expérience professionnelle </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveStudy'}">
+
+                    <div class="modal-body">
+        
+                    <input type="hidden" th:name="@{'alumni.id'}" th:value="${alumni.id}" class="form-control">
+
+                    <div class="mb-3">
+                        <label for="schoolControlInput" class="form-label">Établissement</label>
+                        <input type="text" class="form-control" id="schoolControlInput" th:name="@{'school'}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="diplomaControlInput" class="form-label">Diplôme</label>
+                        <input type="text" class="form-control" id="diplomaControlInput" th:name="@{'diploma'}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="diplomaLevelControlInput" class="form-label">Niveau</label>
+                        <input type="text" class="form-control" id="diplomaLevelControlInput" th:name="@{'diplomaLevel'}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="noteControlInput" class="form-label">Remarque</label>
+                        <input type="text" class="form-control" id="noteControlInput" th:name="@{'note'}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="entryDateControlInput" class="form-label">Date entrée</label>
+                        <input type="date" class="form-control" id="entryDateControlInput" th:name="@{'entryDate'}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="releaseDateControlInput" class="form-label">Date sortie</label>
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:name="@{'releaseDate'}">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                    </div>
+                </form>
+                </div>
+        </div>
+        </div>
+
+        <!-- Formulaire de modification d'une étude -->
+
+        <div th:each="study: ${studies}" class="modal fade" th:id="@{'update' + ${study.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div data-bs-theme="dark" class="modal-header bg-pink">
+                    <h1 class="modal-title" id="staticBackdropLabel">Modifier une formation</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveStudy'}">
+
+                    <div class="modal-body">
+
+                    <input type="hidden" th:name="@{'id'}" th:value="${study.id}" class="form-control">
+        
+                    <input type="hidden" th:name="@{'alumni.id'}" th:value="${study.alumni.id}" class="form-control">
+
+                    <div class="mb-3">
+                        <label for="schoolControlInput" class="form-label">Établissement</label>
+                        <input type="text" class="form-control" id="schoolControlInput" th:name="@{'school'}" th:value="${study.school}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="diplomaControlInput" class="form-label">Diplôme</label>
+                        <input type="text" class="form-control" id="diplomaControlInput" th:name="@{'diploma'}" th:value="${study.diploma}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="diplomaLevelControlInput" class="form-label">Niveau</label>
+                        <input type="text" class="form-control" id="diplomaLevelControlInput" th:name="@{'diplomaLevel'}" th:value="${study.diplomaLevel}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="noteControlInput" class="form-label">Remarque</label>
+                        <input type="text" class="form-control" id="noteControlInput" th:name="@{'note'}" th:value="${study.note}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="entryDateControlInput" class="form-label">Date entrée</label>
+                        <input type="date" class="form-control" id="entryDateControlInput" th:name="@{'entryDate'}" th:value="${study.entryDate}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="releaseDateControlInput" class="form-label">Date sortie</label>
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:name="@{'releaseDate'}" th:value="${study.releaseDate}">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                    </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avertissement de suppression d'un job -->
+
+        <div th:each="study: ${studies}" class="modal fade" th:id="@{'delete' + ${study.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div data-bs-theme="dark" class="modal-header bg-pink">
+                    <h1 class="modal-title" id="staticBackdropLabel">Supprimer une formation </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Alerte :</strong> vous vous apprêtez à supprimer une formation ... du logiciel.</p>
+                    <p>Cette opération supprimera définitivement toutes les informations associées à cet élève : appréciations, retards et absences, toute année confondue !</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+                    <a class="btn btn-primary" href="#" th:href="@{'/alumnis/' + ${alumni.id} + '/deleteStudy/' + ${study.id}}" >Supprimer</a>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragments/footer :: footer"></div>
+
+    
+          <!--Scripts JS-->
+
+        <div th:replace="fragments/scripts :: scripts"></div>
+</html>

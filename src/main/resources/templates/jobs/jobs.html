@@ -4,50 +4,68 @@
         <div th:replace="fragments/head :: head"></div>
         <title>EMG - Anciens élèves</title>
     </head>
-    <body class="bg-light-subtle bg-gradient">
-        <header>
+
             <div th:replace="fragments/header :: header"></div>
-        </header>
-        <main class="mt-5 mb-5">
-            <div class="container-fluid container-md">
+
+            <!-- Breadcrumb -->
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                        <ol class="breadcrumb my-auto">
+                            <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{'/alumnis/' + ${alumni.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="${alumni.firstName} + ' ' + ${alumni.lastName}">Nom de l'élève</span></a></li>
+                            <li class="breadcrumb-item active">Parcours professionnel</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+                <!-- page content -->
 
                 <div class="row">
                     <div class="col-12 mt-4">
-                        <h1 class="mb-2 mt-3">Mettre à jour le parcours professionnel de <span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
-                        
-                        <div>
-                            <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" th:data-bs-target="@{'#addJob' + ${alumni.id}}"><i class="bi bi-plus-circle"> Ajouter</i></a>
+                        <h1 class="mb-2 mt-3"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
+                        <h2>Promotion <span th:text="${alumni.schooling.promotion.name}">promotion</span></h2>
+                        <div class="row">
+                            <div class="col-8">
+                                <h3 class="mb-2">Parcours professionnel</h3>
+                            </div>
+                            <div class="col-4 text-end">
+                                <a class="btn btn-outline-primary" href="#" data-bs-toggle="modal" th:data-bs-target="@{'#addJob' + ${alumni.id}}"><i class="bi bi-plus-circle"> Ajouter</i></a>
+                            </div>
                         </div>
-                        <table class="table table-hover table-borderless ">
-                            <thead>
-                                <tr>
-                                    <th>Poste</th>
-                                    <th>Employeur</th>
-                                    <th>Année d'entrée</th>
-                                    <th>Année de sortie</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:if="${jobs.empty}">
-                                    <td colspan="4">Aucune expérience professionnelle en base de données</td>
-                                </tr>
-                                <tr th:each="job: ${jobs}">
-                                    <td><span th:text="${job.name}">Poste</span></a></td>
-                                    <td><span th:text="${job.company}"> Employeur </span></td>
-                                    <td><span th:text="${#dates.year(job.entryDate)}"> Date de début</span></td>
-                                    <td><span th:text="${#dates.year(job.releaseDate)}"> Date de fin</span></td>
-                                    <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#update' + ${job.id}}"><i class="bi bi-tools" ></i></a></td>
-                                    <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#delete' + ${job.id}}"><i class="bi bi-trash" ></i></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
+
+                        <fieldset class="mb-3 mt-3 rounded shadow p-4 bg-white">
+                            <table class="table table-hover table-borderless ">
+                                <thead>
+                                    <tr>
+                                        <th>Poste</th>
+                                        <th>Employeur</th>
+                                        <th>Année d'entrée</th>
+                                        <th>Année de sortie</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${jobs.empty}">
+                                        <td colspan="4">Aucune expérience professionnelle en base de données</td>
+                                    </tr>
+                                    <tr th:each="job: ${jobs}">
+                                        <td><span th:text="${job.name}">Poste</span></a></td>
+                                        <td><span th:text="${job.company}"> Employeur </span></td>
+                                        <td><span th:text="${#dates.year(job.entryDate)}"> Date de début</span></td>
+                                        <td><span th:text="${#dates.year(job.releaseDate)}"> Date de fin</span></td>
+                                        <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#update' + ${job.id}}"><i class="bi bi-tools" ></i></a></td>
+                                        <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#delete' + ${job.id}}"><i class="bi bi-trash" ></i></a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
 
                     </div>
                 </div>
 
                 
-            </div>
-        </main>
+         
 
         <!-- Formulaire d'ajout d'un job -->
 
@@ -58,7 +76,7 @@
                     <h1 class="modal-title" id="staticBackdropLabel">Ajouter une expérience professionnelle </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/saveJob}">
+                <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveJob'}">
 
                     <div class="modal-body">
         
@@ -76,12 +94,12 @@
 
                     <div class="mb-3">
                         <label for="entryDateControlInput" class="form-label">Date entrée</label>
-                        <input type="date" class="form-control" id="entryDateControlInput" >
+                        <input type="date" class="form-control" id="entryDateControlInput" th:name="@{'entryDate'}">
                     </div>
                     
                     <div class="mb-3">
                         <label for="releaseDateControlInput" class="form-label">Date sortie</label>
-                        <input type="date" class="form-control" id="releaseDateControlInput" >
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:name="@{'releaseDate'}">
                     </div>
 
                     <div class="modal-footer">
@@ -103,7 +121,7 @@
                     <h1 class="modal-title" id="staticBackdropLabel">Modifier une expérience professionnelle </h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form method="post" th:action="@{/saveJob}">
+                <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveJob'}">
 
                     <div class="modal-body">
 
@@ -123,12 +141,12 @@
 
                     <div class="mb-3">
                         <label for="entryDateControlInput" class="form-label">Date entrée</label>
-                        <input type="date" class="form-control" id="entryDateControlInput"  th:value="${job.entryDate}">
+                        <input type="date" class="form-control" id="entryDateControlInput"  th:name="@{'entryDate'}" th:value="${job.entryDate}">
                     </div>
                     
                     <div class="mb-3">
                         <label for="releaseDateControlInput" class="form-label">Date sortie</label>
-                        <input type="date" class="form-control" id="releaseDateControlInput" th:value="${job.releaseDate}">
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:name="@{'releaseDate'}" th:value="${job.releaseDate}">
                     </div>
 
                     <div class="modal-footer">
@@ -140,8 +158,6 @@
                 </div>
             </div>
         </div>
-
-        
 
         <!-- Avertissement de suppression d'un job -->
 
@@ -170,5 +186,4 @@
           <!--Scripts JS-->
 
         <div th:replace="fragments/scripts :: scripts"></div>
-    </body>
 </html>

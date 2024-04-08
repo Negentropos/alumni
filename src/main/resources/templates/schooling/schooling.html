@@ -4,19 +4,28 @@
         <div th:replace="fragments/head :: head"></div>
         <title>EMG - Anciens élèves</title>
     </head>
-    <body class="bg-light-subtle bg-gradient">
-        <header>
             <div th:replace="fragments/header :: header"></div>
-        </header>
-        <main class="mt-5 mb-5">
-            <div class="container-fluid container-md">
+
+            <!-- Breadcrumb -->
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                        <ol class="breadcrumb my-auto">
+                            <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{'/alumnis/' + ${schooling.alumni.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="${schooling.alumni.firstName} + ' ' + ${schooling.alumni.lastName}">Nom de l'élève</span></a></li>
+                            <li class="breadcrumb-item active">Scolarité EMG</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
 
                 <div class="row">
                     <div class="col-12 mt-4">
-                        <h1 class="mb-2 mt-3">Mettre à jour la scolarité de <span th:text="${schooling.alumni.firstName}">prénom</span> <span th:text="${schooling.alumni.lastName}">nom</span></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h1 class="mb-2 mt-3"><span th:text="${schooling.alumni.firstName}">prénom</span> <span th:text="${schooling.alumni.lastName}">nom</span></h1>
+                        <h2>Mettre à jour la scolarité</h2>
 
-                        <form method="post" th:action="@{/saveSchooling}" th:object="${schooling}">
+                        <form method="post" th:action="@{'/schoolings/' + ${schooling.alumni.id} + '/saveSchooling'}" th:object="${schooling}">
 
                             <input type="hidden" th:field="*{id}" class="form-control">
         
@@ -62,7 +71,7 @@
         
                         </div>
                         <div>
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                          <a class="btn btn-secondary" th:href="@{'/alumnis/' + ${schooling.alumni.id}}">Annuler</a>
                           <button type="submit" class="btn btn-primary">Enregistrer</button>
                         </div>
                     </form>
@@ -70,9 +79,6 @@
                     </div>
                 </div>
 
-                
-            </div>
-        </main>
 
         <div th:replace="fragments/footer :: footer"></div>
 
@@ -80,5 +86,5 @@
           <!--Scripts JS-->
 
         <div th:replace="fragments/scripts :: scripts"></div>
-    </body>
+
 </html>

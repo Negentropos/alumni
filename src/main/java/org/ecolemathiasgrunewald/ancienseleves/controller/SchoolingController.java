@@ -44,17 +44,17 @@ public class SchoolingController {
             model.addAttribute("classrooms", classrooms);
             model.addAttribute("promotions", promotions);
             model.addAttribute("teachers", teachers);
-            return "schooling/updateSchooling";
+            return "schooling/schooling";
         }
         else {
             return "schooling/notFound";
         }
     }
 
-    @PostMapping("/saveSchooling")
-	public ModelAndView saveSchooling(@ModelAttribute Schooling schooling) {
+    @PostMapping("/schoolings/{alumniId}/saveSchooling")
+	public ModelAndView saveSchooling(@PathVariable("alumniId") final int alumniId, @ModelAttribute Schooling schooling) {
 		schoolingService.saveSchooling(schooling);
-		return new ModelAndView("redirect:/alumnis");	
+		return new ModelAndView("redirect:/alumnis/" + alumniId);	
 	}
 
 }

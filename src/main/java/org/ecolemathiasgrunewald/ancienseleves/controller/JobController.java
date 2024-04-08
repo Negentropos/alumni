@@ -33,11 +33,9 @@ public class JobController {
 		Iterable<Job> jobs = jobService.getJobsbyAlumniId(alumniId);
 		Optional<Alumni> alumni = alumniService.getAlumni(alumniId);
 		if (alumni.isPresent()){
-			Job newJob = new Job();
-			model.addAttribute("newJob",newJob);
 			model.addAttribute("alumni", alumni.get());
 			model.addAttribute("jobs", jobs);
-			return  "jobs/updateJobs";
+			return  "jobs/jobs";
 		} else {
 			return "jobs/notFound";
 		}
@@ -45,32 +43,16 @@ public class JobController {
 	}
 
 	@GetMapping("/alumnis/{alumniId}/deleteJob/{jobId}")
-	public String deleteJob(@PathVariable("alumniId") final int alumniId,@PathVariable("jobId") final int jobId, Model model) {
+	public ModelAndView deleteJob(@PathVariable("alumniId") final int alumniId,@PathVariable("jobId") final int jobId, Model model) {
 		jobService.deleteJob(jobId);
-		Optional<Alumni> alumni = alumniService.getAlumni(alumniId);
-		Iterable<Job> jobs = jobService.getJobsbyAlumniId(alumniId);
-		if (alumni.isPresent()){
-			model.addAttribute("alumni", alumni.get());
-			model.addAttribute("jobs", jobs);
-			return  "jobs/updateJobs";
-		} else {
-			return "jobs/notFound";
-		}
+		return new ModelAndView("redirect:/alumnis/" + alumniId + "/jobs/");	
 	}
 
-	@PostMapping("/saveJob")
+	@PostMapping("/alumnis/{alumniId}/saveJob")
 	@ResponseBody
-	public ModelAndView saveJob(@ModelAttribute Job job) {
+	public ModelAndView saveJob(@PathVariable("alumniId") final int alumniId, @ModelAttribute Job job) {
 		jobService.saveJob(job);
-		return new ModelAndView("redirect:/alumnis");	
+		return new ModelAndView("redirect:/alumnis/" + alumniId + "/jobs/");
 	}
-
-	@PostMapping("/saveNewJob")
-	public ModelAndView saveNewJob(@ModelAttribute("newJob") Job newJob) {
-		jobService.saveJob(newJob);
-		return new ModelAndView("redirect:/alumnis");	
-	}
-
-
 
 }

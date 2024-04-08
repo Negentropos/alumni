@@ -4,21 +4,34 @@
         <div th:replace="fragments/head :: head"></div>
         <title>EMG - Anciens élèves</title>
     </head>
-    <body class="bg-light-subtle bg-gradient">
-        <header>
             <div th:replace="fragments/header :: header"></div>
-        </header>
-        <main class="mt-5 mb-5">
-            <div class="container-fluid container-md">
+
+            <!-- Breadcrumb -->
+            <div class="row">
+                <div class="col-12 mt-4">
+                    <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                        <ol class="breadcrumb my-auto">
+                            <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{'/promotions/' + ${alumni.schooling.promotion.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="Promotion + ' ' + ${alumni.schooling.promotion.name}">Promotion</span></a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
 
                 <div class="row">
-                    <div class="col-12 mt-4">
-                    <h1 class="mb-2 mt-3"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
+                    <div class="col-12 mt-2 mb-2">
+                        <div class="row justify-content-between mb-2">
+                            <div class="col-6">
+                                <h1><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
+                            </div>
+                            <div class="col-1 text-end me-4">
+                                <a data-bs-toggle="modal" data-bs-target="#alumniForm" class="pink"><i class="bi bi-gear pink"></i></a>
+                            </div>
+                        </div>
                       
-                    <h3><span th:if="${alumni.gender}"><i class="bi bi-gender-male"></i></span>
-                        <span th:unless="${alumni.gender}"><i class="bi bi-gender-female"></i></span> <span th:if="${alumni.birthDate != null}">, Né<span th:unless="${alumni.gender}">e</span> le <span th:text="${#dates.format(alumni.birthDate,'dd/MM/yyyy')}">date de naissance</span></span>
-                        <a data-bs-toggle="modal" data-bs-target="#alumniForm"><i class="bi bi-gear pink"></i>
-                        </a>
+                    <h3 class="fs-4"><span th:if="${alumni.gender}"><i class="bi bi-gender-male"></i></span>
+                        <span th:unless="${alumni.gender}"><i class="bi bi-gender-female"></i></span> <span th:if="${alumni.birthDate != null}"> Né<span th:unless="${alumni.gender}">e</span> le <span th:text="${#dates.format(alumni.birthDate,'dd/MM/yyyy')}">date de naissance</span></span>
                     </h3>
 
                     <fieldset class="mb-3 rounded shadow p-4">
@@ -53,10 +66,19 @@
         
                     </fieldset >
 
-                    <fieldset class="mb-3 rounded shadow p-4" th:if="${not #lists.isEmpty(alumni.studies)}">
-                        <h3 class="pb-2">Poursuite des études</h3>
-                        <ul class="list-group list-group-flush">
-                            <table class="table table-borderless ">
+                    <fieldset class="mb-3 rounded shadow p-4">
+                        <div class="row justify-content-between">
+                            <div class="col-4">
+                                <h3 class="pb-2">Poursuite des études</h3>
+                            </div>
+                            <div class="col-2 text-end">
+                                <a th:href="@{/alumnis/{id}/studies/(id=${alumni.id})}"><i class="bi bi-gear pink"></i></a>
+                            </div>
+                        </div>
+
+                            <div th:if="${#lists.isEmpty(alumni.studies)}">Aucune formation post-EMG renseignée.</div>
+
+                            <table class="table table-borderless" th:if="${not #lists.isEmpty(alumni.studies)}">
                                 <thead>
                                     <tr>
                                         <th>Établissement</th>
@@ -79,7 +101,6 @@
                                 </tbody>
 
                             </table>
-                        </ul>
                     </fieldset>
 
                     <fieldset class="mb-3 rounded shadow p-4">
@@ -88,10 +109,10 @@
                             <div class="col-4">
                                 <h3 class="pb-2">Parcours professionnel</h3>
                             </div>
-                            <div class="col-2">
+                            <div class="col-2 text-end">
                                 <a th:href="@{/alumnis/{id}/jobs/(id=${alumni.id})}"><i class="bi bi-gear pink"></i></a>
                             </div>
-                          </div>
+                        </div>
 
                         <div th:if="${#lists.isEmpty(alumni.jobs)}">Aucune expérience professionnelle renseignée.</div>
 
@@ -117,9 +138,19 @@
 
                     </fieldset>
 
-                    <fieldset class="mb-3 rounded shadow p-4" th:if="${not #lists.isEmpty(alumni.contacts)}">
-                        <h3 class="pb-2">Contact(s)</h3>
+                    <!-- Contacts -->
 
+                    <fieldset class="mb-3 rounded shadow p-4">
+                        <div class="row justify-content-between">
+                            <div class="col-4">
+                                <h3 class="pb-2">Contact</h3>
+                            </div>
+                            <div class="col-2 text-end">
+                                <a th:href="@{/alumnis/{id}/contacts/(id=${alumni.id})}"><i class="bi bi-gear pink"></i></a>
+                            </div>
+                        </div>
+
+                        <div th:if="${#lists.isEmpty(alumni.contacts)}">Aucun contact renseigné.</div>
                         <table class="table table-borderless ">
                             <tbody>
                                 <tr th:each="contact: ${alumni.contacts}">
@@ -135,12 +166,8 @@
 
                     </div>
                 </div>
-
                 
-            </div>
-        </main>
 
-        <div th:replace="fragments/footer :: footer"></div>
 
         <!-- Formulaire pour infos Alumni -->
 
@@ -181,9 +208,10 @@
             </div>
           </div>
 
+          <!-- Footer -->
     
+          <div th:replace="fragments/footer :: footer"></div>
           <!--Scripts JS-->
 
         <div th:replace="fragments/scripts :: scripts"></div>
-    </body>
 </html>
