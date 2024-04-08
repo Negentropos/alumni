@@ -14,7 +14,8 @@
                 <div class="row">
                     <div class="col-12 mt-4">
                         <h1 class="mb-2 mt-3">Mettre à jour la scolarité de <span th:text="${schooling.alumni.firstName}">prénom</span> <span th:text="${schooling.alumni.lastName}">nom</span></h1>
-                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                         <form method="post" th:action="@{/saveSchooling}" th:object="${schooling}">
 
                             <input type="hidden" th:field="*{id}" class="form-control">
@@ -42,6 +43,13 @@
                                 <label for="entryClassroomSelect" class="form-label">Classe d'entrée</label>
                                 <select class="form-select" aria-label="Release Class Room" id="entryClassroomSelect" th:field="*{entryClassroom.id}">
                                     <option th:each="classroom : ${classrooms}" th:text="${classroom.name}" th:value="${classroom.id}">Classe</option>
+                                </select>
+                            </div>
+
+                            <div th:if="${schooling.entryClassroom.name == 'JE'}" class="mb-3">
+                                <label for="jardinierSelect" class="form-label">Jardinier(e) d'enfants</label>
+                                <select class="form-select" aria-label="Select jardinier" id="jardinierSelect" th:field="*{jardinier.id}">
+                                    <option th:each="teacher : ${teachers}" th:text="${teacher.firstName + ' ' + teacher.lastName}" th:value="${teacher.id}">Enseignant</option>
                                 </select>
                             </div>
         

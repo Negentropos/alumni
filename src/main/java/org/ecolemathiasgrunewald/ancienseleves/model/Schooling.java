@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import org.hibernate.annotations.DynamicUpdate;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,13 +33,12 @@ public class Schooling {
 	private Date releaseDate;
 
     @ManyToOne(
-        cascade = CascadeType.ALL
+        //cascade = CascadeType.ALL
     )
     @JoinColumn(name="classroom_entry_id")
     private Classroom entryClassroom;
 
     @ManyToOne(
-        cascade = CascadeType.ALL
     )
     @JoinColumn(name="classroom_release_id")
     private Classroom releaseClassroom;
@@ -48,22 +46,16 @@ public class Schooling {
 	private String note;
 
     @OneToOne(
-        cascade = CascadeType.ALL
     )
     @JoinColumn(name="alumni_id")
     private Alumni alumni;
 
     @ManyToOne(
-        cascade = CascadeType.ALL
     )
     @JoinColumn(name="promotion_id")
     private Promotion promotion;
 
     @ManyToOne(
-        cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-        }
     )
     @JoinColumn(name="jardinier_id")
     private Teacher jardinier;

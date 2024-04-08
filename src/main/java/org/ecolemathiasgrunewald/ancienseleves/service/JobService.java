@@ -18,4 +18,12 @@ public class JobService {
         return savedJob;
     }
 
+    public Iterable<Job> getJobsbyAlumniId(int alumniId) {
+        return jobRepository.findByAlumniId(alumniId);
+    }
+
+    public void deleteJob(int jobId) {
+        jobRepository.deleteById(jobId);
+    }
+
 }

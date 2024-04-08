@@ -4,9 +4,11 @@ import java.util.Optional;
 import org.ecolemathiasgrunewald.ancienseleves.model.Classroom;
 import org.ecolemathiasgrunewald.ancienseleves.model.Promotion;
 import org.ecolemathiasgrunewald.ancienseleves.model.Schooling;
+import org.ecolemathiasgrunewald.ancienseleves.model.Teacher;
 import org.ecolemathiasgrunewald.ancienseleves.service.ClassroomService;
 import org.ecolemathiasgrunewald.ancienseleves.service.PromotionService;
 import org.ecolemathiasgrunewald.ancienseleves.service.SchoolingService;
+import org.ecolemathiasgrunewald.ancienseleves.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,15 +30,20 @@ public class SchoolingController {
     @Autowired
     private PromotionService promotionService;
 
+    @Autowired
+    private TeacherService teacherService;
+
     @GetMapping("/schoolings/{id}")
     public String schooling(@PathVariable("id") final int id, Model model) {
         Optional<Schooling> schooling = schoolingService.getSchooling(id);
         if (schooling.isPresent()){
             Iterable<Classroom> classrooms = classroomService.getClassrooms();
             Iterable<Promotion> promotions = promotionService.getPromotions();
+            Iterable<Teacher> teachers = teacherService.getTeachers();
             model.addAttribute("schooling",schooling.get());
             model.addAttribute("classrooms", classrooms);
             model.addAttribute("promotions", promotions);
+            model.addAttribute("teachers", teachers);
             return "schooling/updateSchooling";
         }
         else {
