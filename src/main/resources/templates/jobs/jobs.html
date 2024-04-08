@@ -13,6 +13,7 @@
                     <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
                         <ol class="breadcrumb my-auto">
                             <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{'/promotions/' + ${alumni.schooling.promotion.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="Promotion + ' ' + ${alumni.schooling.promotion.name}">Promotion</span></a></li>
                             <li class="breadcrumb-item"><a th:href="@{'/alumnis/' + ${alumni.id}}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"><span th:text="${alumni.firstName} + ' ' + ${alumni.lastName}">Nom de l'élève</span></a></li>
                             <li class="breadcrumb-item active">Parcours professionnel</li>
                         </ol>
@@ -24,8 +25,7 @@
 
                 <div class="row">
                     <div class="col-12 mt-4">
-                        <h1 class="mb-2 mt-3"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
-                        <h2>Promotion <span th:text="${alumni.schooling.promotion.name}">promotion</span></h2>
+                        <h1 class="mb-2"><span th:text="${alumni.firstName}">Prénom</span> <span th:text="${alumni.lastName}">Nom</span></h1>
                         <div class="row">
                             <div class="col-8">
                                 <h3 class="mb-2">Parcours professionnel</h3>
@@ -73,7 +73,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div data-bs-theme="dark" class="modal-header bg-pink">
-                    <h1 class="modal-title" id="staticBackdropLabel">Ajouter une expérience professionnelle </h1>
+                    <h3 class="modal-title" id="staticBackdropLabel">Ajouter une expérience professionnelle </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveJob'}">
@@ -118,7 +118,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div data-bs-theme="dark" class="modal-header bg-pink">
-                    <h1 class="modal-title" id="staticBackdropLabel">Modifier une expérience professionnelle </h1>
+                    <h3 class="modal-title" id="staticBackdropLabel">Modifier une expérience professionnelle </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveJob'}">
@@ -165,7 +165,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div data-bs-theme="dark" class="modal-header bg-pink">
-                    <h1 class="modal-title" id="staticBackdropLabel">Supprimer une expérience professionnelle </h1>
+                    <h3 class="modal-title" id="staticBackdropLabel">Supprimer une expérience professionnelle </h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

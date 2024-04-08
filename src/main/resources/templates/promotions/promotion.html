@@ -7,8 +7,21 @@
 
             <div th:replace="fragments/header :: header"></div>
 
+             <!-- Breadcrumb -->
+             <div class="row">
+                <div class="col-12 mt-4">
+                    <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                        <ol class="breadcrumb my-auto">
+                            <li class="breadcrumb-item"><a th:href="@{/}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Accueil</a></li>
+                            <li class="breadcrumb-item"><a th:href="@{/promotions}" class="link-secondary link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Promotions</a></li>
+                            <li class="breadcrumb-item active"><span th:text="${promotion.name}">XXXX</span></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
                 <div class="row">
-                    <div class="col-12 col-11-lg col-xl-10 mt-4">
+                    <div class="col-12 col-11-lg col-xl-10">
                     <h1 class="mb-2 mt-3">Promotion <span th:text="${promotion.name}">promotion</span> </h1>
 
                     <fieldset class="mb-3 rounded shadow p-4" th:if="${not #lists.isEmpty(promotion.schoolings)}">

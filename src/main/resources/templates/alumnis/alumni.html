@@ -41,7 +41,8 @@
                                 <h3 class="pb-2">Scolarité EMG</h3>
                             </div>
                             <div class="col-2 text-end">
-                                <a th:href="@{/schoolings/{id}(id=${alumni.schooling.id})}"><i class="bi bi-gear pink"></i></a>
+                                <!-- <a th:href="@{/schoolings/{id}(id=${alumni.schooling.id})}"><i class="bi bi-gear pink"></i></a> -->
+                                <a data-bs-toggle="modal" data-bs-target="#schoolingForm" class="pink"><i class="bi bi-gear pink"></i></a>
                             </div>
                           </div>
                         
@@ -174,8 +175,8 @@
         <div class="modal fade" id="alumniForm" tabindex="-1" aria-labelledby="alumniFormLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Alumni</h1>
+                <div data-bs-theme="dark" class="modal-header bg-pink">
+                  <h3 class="modal-title" id="exampleModalLabel">Alumni</h3>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -197,6 +198,75 @@
                         <label for="birthDateControlInput" class="form-label">Date de naissance</label>
                         <input type="date" class="form-control" id="birthDateControlInput" th:field="*{birthDate}">
                     </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            </form>
+              </div>
+            </div>
+          </div>
+
+        <!-- Formulaire pour gestion scolarité -->
+
+        <div class="modal fade" id="schoolingForm" tabindex="-1" aria-labelledby="schoolingFormLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div data-bs-theme="dark" class="modal-header bg-pink">
+                  <h3 class="modal-title" id="exampleModalLabel">Scolarité EMG</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" th:action="@{'/alumnis/' + ${alumni.id} + '/saveSchooling'}">
+
+                    <input type="hidden" th:value="${alumni.schooling.id}" th:name="id"  class="form-control">
+
+                    <input type="hidden" th:value="${alumni.id}" th:name="alumni.id"  class="form-control">
+
+                    <div class="mb-3">
+                        <label for="entryDateControlInput" class="form-label">Date entrée</label>
+                        <input type="date" class="form-control" id="entryDateControlInput" th:name="entryDate" th:value="${alumni.schooling.entryDate}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="releaseDateControlInput" class="form-label">Date sortie</label>
+                        <input type="date" class="form-control" id="releaseDateControlInput" th:name="releaseDate" th:value="${alumni.schooling.releaseDate}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="releaseClassroomSelect" class="form-label">Classe sortie</label>
+                        <select class="form-select" aria-label="Release Class Room" id="releaseClassroomSelect" th:name="releaseClassroom.id">
+                            <option th:value="${alumni.schooling.releaseClassroom.id}" th:text="${alumni.schooling.releaseClassroom.name}"></option>
+                            <option th:each="classroom : ${classrooms}" th:text="${classroom.name}" th:value="${classroom.id}">Classe</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="entryClassroomSelect" class="form-label">Classe d'entrée</label>
+                        <select class="form-select" aria-label="Release Class Room" id="entryClassroomSelect" th:name="entryClassroom.id">
+                            <option th:value="${alumni.schooling.entryClassroom.id}" th:text="${alumni.schooling.entryClassroom.name}"></option>
+                            <option th:each="classroom : ${classrooms}" th:text="${classroom.name}" th:value="${classroom.id}">Classe</option>
+                        </select>
+                    </div>
+
+                    <div th:if="${alumni.schooling.entryClassroom.name == 'JE'}" class="mb-3">
+                        <label for="jardinierSelect" class="form-label">Jardinier(e) d'enfants</label>
+                        <select class="form-select" aria-label="Select jardinier" id="jardinierSelect" th:name="jardinier">
+                            <option th:if="${alumni.schooling.jardinier?.id != null}" th:value="${alumni.schooling.jardinier?.id}" th:text="${alumni.schooling.jardinier?.firstName + ' ' + alumni.schooling.jardinier?.lastName}" selected></option>
+                            <option th:each="teacher : ${teachers}" th:text="${teacher.firstName + ' ' + teacher.lastName}" th:value="${teacher.id}">Enseignant</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="promotionSelect" class="form-label">Promotion</label>
+                        <select class="form-select" aria-label="Promotion" id="promotionSelect" th:name="promotion.id">
+                            <option th:value="${alumni.schooling.promotion.id}" th:text="${alumni.schooling.promotion.name}" selected></option>
+                            <option th:each="promotion : ${promotions}" th:text="${promotion.name}" th:value="${promotion.id}">Classe</option>
+                        </select>
+                    </div>
+
 
                 </div>
                 <div class="modal-footer">

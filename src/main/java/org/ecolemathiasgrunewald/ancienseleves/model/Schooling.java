@@ -32,14 +32,11 @@ public class Schooling {
     @Column(name = "release_date")
 	private Date releaseDate;
 
-    @ManyToOne(
-        //cascade = CascadeType.ALL
-    )
+    @ManyToOne()
     @JoinColumn(name="classroom_entry_id")
     private Classroom entryClassroom;
 
-    @ManyToOne(
-    )
+    @ManyToOne()
     @JoinColumn(name="classroom_release_id")
     private Classroom releaseClassroom;
 

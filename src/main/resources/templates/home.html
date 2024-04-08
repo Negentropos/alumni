@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <div th:replace="fragments/head :: head"></div>
+        <title>EMG - Promotion</title>
+    </head>
+            <div th:replace="fragments/header :: header"></div>
+
+             <!-- Breadcrumb -->
+             <div class="row">
+                <div class="col-12 mt-4">
+                    <nav class="breadcrumb-custom-divider"  aria-label="breadcrumb">
+                        <ol class="breadcrumb my-auto">
+                            <li class="breadcrumb-item active">Accueil</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+
+                <div class="row">
+                    <h1 class="mb-2 mt-3">EMG - Anciens élèves</h1>
+
+                    <div class="col-4">
+                        <fieldset class="mb-3 rounded shadow p-4">
+                            <h2>Alumnis</h2>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="#">Rechercher un ancien élève</a></li>
+                                <li class="list-group-item">Ajouter un ancien élève</li>
+                                <li class="list-group-item"><a href="/alumnis">Tous les anciens élèves</a></li>
+                            </ul>
+
+                        </fieldset>
+                    </div>
+                    <div class="col-4">
+                        <fieldset class="mb-3 rounded shadow p-4">
+                            <h2>Promotions</h2>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="/promotions">Afficher les promotions</a></li>
+                                <li class="list-group-item"><a href="#">Afficher les professeurs</a></li>
+                                <li class="list-group-item">Créer une promotion</li>
+                            </ul>
+
+                        </fieldset>
+                    </div>
+                    <div class="col-4">
+                        <fieldset class="mb-3 rounded shadow p-4">
+                            <h2>Listes</h2>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Extraire les données</li>
+                                <li class="list-group-item">Statistiques</li>
+                                <li class="list-group-item">Requêtes</li>
+                            </ul>
+
+                        </fieldset>
+                    </div>
+                    
+                </div>
+
+                
+
+                <div th:replace="fragments/footer :: footer"></div>
+
+        <div th:replace="fragments/scripts :: scripts"></div>
+
+</html>

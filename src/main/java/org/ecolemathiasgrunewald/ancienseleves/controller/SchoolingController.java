@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -51,8 +52,9 @@ public class SchoolingController {
         }
     }
 
-    @PostMapping("/schoolings/{alumniId}/saveSchooling")
-	public ModelAndView saveSchooling(@PathVariable("alumniId") final int alumniId, @ModelAttribute Schooling schooling) {
+    @PostMapping("/alumnis/{alumniId}/saveSchooling")
+    @ResponseBody
+    public ModelAndView saveSchooling(@PathVariable("alumniId") final int alumniId, @ModelAttribute Schooling schooling) {
 		schoolingService.saveSchooling(schooling);
 		return new ModelAndView("redirect:/alumnis/" + alumniId);	
 	}
