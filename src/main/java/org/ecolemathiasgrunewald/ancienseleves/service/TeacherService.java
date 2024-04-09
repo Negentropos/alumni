@@ -15,6 +15,11 @@ public class TeacherService {
         return teacherRepository.findAll();
     }
 
+    public Teacher saveTeacher(Teacher teacher) {
+        Teacher savedTeacher = teacherRepository.save(teacher);
+        return savedTeacher;
+    }
+
 
 
 }

@@ -3,8 +3,6 @@ package org.ecolemathiasgrunewald.ancienseleves.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import java.sql.Date;
 
 import jakarta.persistence.CascadeType;
@@ -38,28 +36,26 @@ public class Teacher {
     private String phone;
 
     @Column(name = "entry_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date entryDate;
 
     @Column(name = "release_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date releaseDate;
 
     @OneToMany(
-        mappedBy = "teacher",
-        cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST
-        }
+        mappedBy = "teacher"
+        // cascade = {
+        //     CascadeType.MERGE,
+        //     CascadeType.PERSIST
+        // }
     )
     private List<PromotionTeacher> promotionTeachers = new ArrayList<>();
 
     @OneToMany(
-        mappedBy = "jardinier",
-        cascade = {
-            CascadeType.MERGE,
-            CascadeType.PERSIST
-        }
+        mappedBy = "jardinier"
+        // cascade = {
+        //     CascadeType.MERGE,
+        //     CascadeType.PERSIST
+        // }
     )
     private List<Schooling> jeSchoolings = new ArrayList<>();
 
