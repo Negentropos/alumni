@@ -1,7 +1,6 @@
 package org.ecolemathiasgrunewald.ancienseleves.model;
 
 import java.sql.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,11 +26,9 @@ public class PromotionTeacher {
     private String role;
 
     @Column(name = "entry_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date startDate;
 
     @Column(name = "release_date")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date endDate;
 
     @ManyToOne(
@@ -45,6 +42,5 @@ public class PromotionTeacher {
     )
     @JoinColumn(name="promotion_id")
     private Promotion promotion;
-
 
 }

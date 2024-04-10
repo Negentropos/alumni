@@ -24,9 +24,8 @@
                     <div class="col-12 col-11-lg col-xl-10">
                     <h1 class="mb-2 mt-3">Promotion <span th:text="${promotion.name}">promotion</span> </h1>
 
-                    <fieldset class="mb-3 rounded shadow p-4" th:if="${not #lists.isEmpty(promotion.schoolings)}">
+                    <fieldset class="mb-3 rounded shadow p-4">
                         <h3 class="pb-2">Élèves</h3>
-                        <ul class="list-group list-group-flush">
                             <table class="table table-borderless ">
                                 <thead>
                                     <tr>
@@ -38,6 +37,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr th:if="${promotion.schoolings.empty}">
+                                        <td colspan="5">Aucun ancien élève associé à cette promotion</td>
+                                    </tr>            
                                     <tr th:each="schooling: ${promotion.schoolings}">
                                         <td><a  th:href="@{/alumnis/{id}(id=${schooling.alumni.id})}"><span th:text="${schooling.alumni.lastName}">Nom</span> <span th:text="${schooling.alumni.firstName}">Prénom</span></a></td>
                                         <td><span th:text="${schooling.entryClassroom.name}">non renseigné</span></td>
@@ -48,7 +50,33 @@
                                 </tbody>
 
                             </table>
-                        </ul>
+                    </fieldset>
+
+                    <fieldset class="mb-3 rounded shadow p-4">
+                        <h3 class="pb-2">Enseignants</h3>
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Prénom & Nom</th>
+                                        <th>Statut</th>
+                                        <th>De</th>
+                                        <th>À</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:if="${promotion.promotionTeachers.empty}">
+                                        <td colspan="4">Aucun enseignant associé à cette promotion.</td>
+                                    </tr>
+                                    <tr th:each="promotionTeacher: ${promotion.promotionTeachers}">
+                                        <td><span th:text="${promotionTeacher.teacher.lastName}">Nom</span> <span th:text="${promotionTeacher.teacher.firstName}">Prénom</span></td>
+                                        <td><span th:text="${promotionTeacher.role}">Rôle</span></td>
+                                        <td><span th:text="${#dates.year(promotionTeacher.startDate)}">Date de début</span></td>
+                                        <td><span th:text="${#dates.year(promotionTeacher.endDate)}">Date de fin</span></td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
                     </fieldset>
                     </div>
                 </div>

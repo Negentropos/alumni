@@ -3,7 +3,9 @@ package org.ecolemathiasgrunewald.ancienseleves.controller;
 import java.util.Optional;
 
 import org.ecolemathiasgrunewald.ancienseleves.model.Promotion;
+import org.ecolemathiasgrunewald.ancienseleves.model.PromotionTeacher;
 import org.ecolemathiasgrunewald.ancienseleves.service.PromotionService;
+import org.ecolemathiasgrunewald.ancienseleves.service.PromotionTeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

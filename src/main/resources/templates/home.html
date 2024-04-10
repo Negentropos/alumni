@@ -19,43 +19,50 @@
 
 
                 <div class="row">
-                    <h1 class="mb-2 mt-3">EMG - Anciens élèves</h1>
+                    <h1 class="mb-4 mt-3">EMG - Anciens élèves</h1>
 
                     <div class="col-4">
-                        <fieldset class="mb-3 rounded shadow p-4">
-                            <h2>Alumnis</h2>
 
+                        <div class="card">
+                            <img th:src="@{/images/alumni.jpg}" class="card-img-top" alt="Anciens élèves EMG">
+                            <div class="card-body">
+                              <h5 class="card-title">Alumnis</h5>
+                              <p class="card-text">Études, parcours professionnels etc.</p>
+                            </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><a href="#">Rechercher un ancien élève</a></li>
                                 <li class="list-group-item">Ajouter un ancien élève</li>
                                 <li class="list-group-item"><a href="/alumnis">Tous les anciens élèves</a></li>
                             </ul>
-
-                        </fieldset>
+                          </div>
                     </div>
                     <div class="col-4">
-                        <fieldset class="mb-3 rounded shadow p-4">
-                            <h2>Promotions</h2>
-
+                        <div class="card">
+                            <img th:src="@{/images/promotions.jpg}" class="card-img-top" alt="Anciens élèves EMG">
+                            <div class="card-body">
+                              <h5 class="card-title">Promotions</h5>
+                              <p class="card-text">Par année d'entrée en 1<sup>e</sup> classe</p>
+                            </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><a href="/promotions">Afficher les promotions</a></li>
                                 <li class="list-group-item"><a href="/teachers">Afficher les professeurs</a></li>
                                 <li class="list-group-item">Créer une promotion</li>
                             </ul>
-
-                        </fieldset>
+                        </div>
                     </div>
                     <div class="col-4">
-                        <fieldset class="mb-3 rounded shadow p-4">
-                            <h2>Listes</h2>
-
+                        <div class="card">
+                            <img th:src="@{/images/liste.jpg}" class="card-img-top" alt="Anciens élèves EMG">
+                            <div class="card-body">
+                              <h5 class="card-title">Données</h5>
+                              <p class="card-text">Listes, suivi des effectifs etc.</p>
+                            </div>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">Extraire les données</li>
                                 <li class="list-group-item">Statistiques</li>
                                 <li class="list-group-item">Requêtes</li>
                             </ul>
-
-                        </fieldset>
+                        </div>
                     </div>
                     
                 </div>
