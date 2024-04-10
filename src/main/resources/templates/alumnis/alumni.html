@@ -156,7 +156,7 @@
                                 <tr th:each="contact: ${alumni.contacts}">
                                     <td><span th:text="${contact.type}">type de contact</span></td>
                                     <td><span th:text="${contact.content}">valeur</span></td>
-                                    <td th:unless="${contact.usable}">liste noire</td>
+                                    <td><span th:if="not ${contact.usable}"><i class="bi bi-sign-stop text-primary"></i></span></td>
                                 </tr>
                             </tbody>
 

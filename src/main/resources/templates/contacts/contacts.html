@@ -48,7 +48,7 @@
                                     <tr th:each="contact: ${contacts}">
                                         <td><span th:text="${contact.type}"> Type </span></a></td>
                                         <td><span th:text="${contact.content}"> Valeur </span></td>
-                                        <td><span th:if="not ${contact.usable}"><i class="bi bi-check-circle-fill text-primary"></i></span></td>
+                                        <td><span th:if="not ${contact.usable}"><i class="bi bi-sign-stop text-primary"></i></span></td>
                                         <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#update' + ${contact.id}}"><i class="bi bi-tools" ></i></a></td>
                                         <td class="text-center" ><a href="#" data-bs-toggle="modal" th:data-bs-target="@{'#delete' + ${contact.id}}"><i class="bi bi-trash" ></i></a></td>
                                     </tr>
@@ -58,9 +58,6 @@
 
                     </div>
                 </div>
-
-                
-         
 
         <!-- Formulaire d'ajout d'un contact -->
 
@@ -88,8 +85,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="usableControlInput" class="form-check-label">Liste noire</label>
-                        <input type="checkbox" class="form-check-input" id="usableControlInput" th:name="@{'usable'}">
+                        <label for="usableControlInput" class="form-check-label">Utilisable</label>
+                        <input type="checkbox" class="form-check-input" id="usableControlInput" th:name="@{'usable'}" checked>
                     </div>
 
                     <div class="modal-footer">
@@ -130,7 +127,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="usableControlInput" class="form-check-label">Liste noire</label>
+                        <label for="usableControlInput" class="form-check-label">Utilisable</label>
                         <input type="checkbox" class="form-check-input" id="usableControlInput" th:name="@{'usable'}" th:value="${contact.usable}">
                     </div>
                     

@@ -26,10 +26,10 @@ public class TeacherController {
     }
 
     @PostMapping("/teachers/saveTeacher")
-	@ResponseBody
+	//@ResponseBody
 	public ModelAndView saveTeacher(@ModelAttribute Teacher teacher) {
 		teacherService.saveTeacher(teacher);
-		return new ModelAndView("redirect:/teachers/");
+		return new ModelAndView("redirect:/teachers");
 	}
     
 
