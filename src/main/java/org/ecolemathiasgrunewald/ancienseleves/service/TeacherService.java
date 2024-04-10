@@ -20,6 +20,4 @@ public class TeacherService {
         return savedTeacher;
     }
 
-
-
 }
